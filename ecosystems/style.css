@@ -1,0 +1,48 @@
+body {
+	text-align: center;
+}
+
+label {
+	font-size:18px;
+}
+
+#main-container {
+	width:1100px;
+	margin:0 auto;
+}
+
+#first-container {
+	margin-top:50px;
+}
+
+#second-container, #third-container {
+	display: flex;
+	margin-top:50px;
+}
+
+.division-title {
+	font-size:24px;
+	font-weight:bold;
+	margin-bottom:0px;
+}
+
+#food-web, #levers {
+	width:550px;
+	margin-right:50px;
+}
+
+.organism {
+	font-size:16px;
+	font-weight:bold;
+	width:100px;
+	height:50px;
+	margin:10px 15px 10px 15px;
+	background-color:#E0E3E5;
+	border:solid;
+	border-color:#3B3B40;
+}
+
+.organism:hover {
+	background-color:#BBBDBF;
+	border-color:black;
+}

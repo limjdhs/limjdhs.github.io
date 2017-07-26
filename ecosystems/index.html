@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" type="text/css" />
+	<script src="Chart.bundle.js"></script>
+</head>
+<body>
+	<div id="main-container">
+		<div id="first-container">
+			<h1>Ecosystem Simulation</h1>
+			<p>Explanation about carrying capacity.</p>
+		</div>
+
+		<div id="second-container">
+			<div id="food-web">
+				<p class="division-title">The Food Web</p>
+				<div id="carnivores">
+					<button class="organism" id="carnivore-one">Carnivore</button>
+				</div> <br>
+				<div id="omnivores">
+					<button class="organism" id="omnivore-one">Omnivore</button>
+					<button class="organism" id="omnivore-two">Omnivore</button>
+				</div> <br>
+				<div id="herbivores">
+					<button class="organism" id="herbivore-one">Herbivore</button>
+					<button class="organism" id="herbivore-two">Herbivore</button>
+					<button class="organism" id="herbivore-three">Herbivore</button>
+				</div> <br>
+				<div id="producers">
+					<button class="organism" id="producer-one">Producer</button>
+					<button class="organism" id="producer-two">Producer</button>
+					<button class="organism" id="producer-three">Producer</button>
+					<button class="organism" id="producer-four">Producer</button>
+				</div>
+			</div>
+			<div id="graph">
+				<p class="division-title">Carrying Capacity Breakdown</p>
+				<p>Insert graph charting species totals.</p>
+			</div>
+		</div>
+
+		<div id="third-container">
+			<div id="levers">
+				<p class="division-title">Human Actions</p>
+				<div>
+					<label>Habitat: <output id="habitatOutput">100</output></label> 
+	            	<input type="range" id="habitat" value="100" min="0" max="100" oninput="habitatOutput.value = habitat.value">
+	    			<p>habitat loss - development, industralization, clear cutting, soil erosion, etc.</p>
+	    		</div>
+	    		<div>
+					<label>Water: <output id="waterOutput">100</output></label> 
+	            	<input type="range" id="water" value="100" min="0" max="100" oninput="waterOutput.value = water.value">
+	            	<p>acid rain or something</p>
+            	</div>
+            	<div>
+					<label>Air Quality: <output id="airOutput">100</output></label> 
+	            	<input type="range" id="air" value="100" min="0" max="100" oninput="airOutput.value = air.value">
+					<p>pollution</p>
+				</div>
+			</div>
+			<div id="resources">
+				<p class="division-title">Resources Breakdown</p>
+				<canvas id="resources-chart" width="500" height="350"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<script src="jsplumb.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>

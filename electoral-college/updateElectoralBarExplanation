@@ -1,0 +1,28 @@
+
+# begin 0
+Define (def) a function called update_electoral_bar. 
+# end 0 
+# begin 1
+	Start a for loop (a set of instructions to repeat) for every state in the map.
+# end 1 
+# begin 2
+		Start a conditional and check to see if the variable current_color is red. 
+# end 2
+# begin 3
+			Add the state's electoral votes to the total number of republican votes, then break out of the loop. 
+# end 3
+# begin 4
+		If current_color is not red, the conditional then checks if current_color is blue. 
+# end 4 
+# begin 5
+			Add the state's electoral votes to the total number of Democratic votes, then break out of the loop. 
+# end 5
+# begin 6
+		If current_color is not red and is not blue, it must be gray for neutral. 
+# end 6
+# begin 7 
+			Add the state's electoral votes to the total number of neutral votes, then break out of the loop.
+# end 7
+# begin 8
+	Use 2 functions to update the width of the Republican and Democratic bars. 
+# end 8

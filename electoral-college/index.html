@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Electoral College Simulation</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="atomLight.css">
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+    <div id="main-container">
+        <h1>Interactive Electoral College Map</h1>
+        <div class="tab">
+            <button onclick="dataDemo()">Demonstration</button> 
+            <button onclick="data2016()">2016 Presidential Election </button> 
+            <button onclick="data1984()">1984 Presidential Election </button> 
+            <button onclick="data2020()">2020 Presidential Election </button>
+        </div>
+        <div id="description"></div>
+        <br>
+        
+        <h3 class="toggle" id="directions" onclick="toggleInstructions()">Click here to <span> view </span> instructions.</h3>
+        <div id="instructions">
+            <p>Drag the sliders to see how an individual state's popular vote could have changed the national electoral and popular votes. Click on the states to quickly change their electoral vote. On the map, zoom in to see small states, or hover over a state to see its number of electoral votes and voters.</p>
+        </div>
+        <br>
+
+        <div id="container">
+            <h2 class="text">The Electoral Vote</h2>
+            <div class="bars" id="electoral-bar">
+                <div class="vote-bar dem"></div>
+                <div class="vote-bar neutral"></div>
+                <div class="vote-bar rep"></div>
+                <p class="bar-label dem-num"></p>
+                <p class="bar-label rep-num"></p>
+            </div>
+            <h2 class="text">The Popular Vote</h2>
+            <div class="bars" id="popular-bar">
+                <div class="vote-bar dem"></div>
+                <div class="vote-bar neutral"></div>
+                <div class="vote-bar rep"></div>
+                <p class="bar-label dem-num"></p>
+                <p class="bar-label rep-num"></p>
+            </div>
+        </div>
+                
+        <div id="content-container">
+            <div id="left-container">
+                <div id="map"></div>
+            </div>
+            
+            <div id="right-sidebar">
+                <div id="percentage-main-header">Voting by State</div>
+                <div id="percentage-header">
+                    <span>Democrat</span>
+                    <span>Republican</span>
+                </div>
+                <div id="sliders"></div>
+            </div>
+        </div>
+        <br>
+
+        <div id="bottom-container">
+            <h2>How is this map created?</h2>
+            <div class="tab">
+                <button class="tablinks" onclick="openTab('clickState')">Clicking on States</button>
+                <button class="tablinks" onclick="openTab('updateElectoralBar')">Updating the Electoral Bar</button>
+                <button class="tabLinks" onclick="openTab('updatePopularBar')">Updating the Popular Bar </button>
+            </div>
+            <div id="code">
+                <pre> <code id="highlight"></code></pre>
+                <div id="explanation"></div>
+            </div>
+            <br>
+            <p><b>Note:</b> In 48 states, the candidate who wins the popular vote will normally get all of the state's votes. However, Maine and Nebraska use a "congressional district method": two electoral votes to the state's popular winner, and one electoral vote to the popular winner in each congressional district. This could lead to a split electoral vote, where not every electoral vote in the state goes to the same candidate. For the purposes of simplifying the educational simulation, this has not been included in the map above. (Because of Maine's split electoral vote in 2016, the 2016 Presidential Election simulation is off by 1 vote.)</p>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/d3.min.js"></script>
+    <script type="text/javascript" src="lib/topojson@3.0.0.js"></script>
+    <script type="text/javascript" src="lib/datamaps.usa.min.js"></script>
+    <script src="highlightPack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>
