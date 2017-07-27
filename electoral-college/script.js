@@ -171,13 +171,13 @@ function data2016() {
 function data1984() {
     fileName='data1984.json';
     updateAll(fileName);
-    document.getElementById("description").innerHTML = "1984 Presidential Election | The map below starts off with the results of the 1984 Presidential Election, where incumbent Ronald Reagan (R) ran against former Vice President Walter Mondale (D). While Mondale won over 40% of the popular vote, the winner-take-all structure of the electoral college resulted in him winning only 13 electoral votes (10 from Minnesota and 3 from the Disrict of Columbia).";
+    document.getElementById("description").innerHTML = "1984 Presidential Election | The map below starts off with the results of the 1984 Presidential Election, where incumbent Ronald Reagan (R) ran against former Vice President Walter Mondale (D). While Mondale won over 40% of the popular vote, the winner-take-all structure of the electoral college resulted in him winning only 13 electoral votes (10 from Minnesota and 3 from the District of Columbia).";
 }
 
 function data2020() {
     fileName='data2020.json';
     updateAll(fileName);
-    document.getElementById("description").innerHTML = "2020 Presidential Election | The map below starts off with showing the states that have voted for the same party since 2000. The 13 states that have will decide the outcome of the presidential race, where a candidate needs 270 votes to win.";
+    document.getElementById("description").innerHTML = "2020 Presidential Election | The map below starts off with showing the states that have voted for the same party since 2000. The 13 gray states will decide the outcome of the presidential race, where a candidate needs 270 votes to win.";
 }
 
 function toggleInstructions(){
