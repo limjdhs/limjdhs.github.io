@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
     <link rel="stylesheet" href="style.css" type="text/css" />
-	<script src="Chart.bundle.js"></script>
 </head>
 <body>
 	<div id="main-container">
@@ -47,9 +46,14 @@
 				<p class="division-title">Human Actions</p>
 				<div id="levers-setup">
 					<div id="levers-labels">
-						<div><label>Habitat: <output id="habitatOutput">100</output></label></div>
-						<div><label>Water: <output id="waterOutput">100</output></label></div>
-						<div><label>Air Quality: <output id="airOutput">100</output></label></div>
+						<div>Habitat:</div>
+						<div>Water:</div>
+						<div>Air Quality:</div>
+					</div>
+					<div id="levers-values">
+						<div><output id="habitatOutput">100</output></div>
+						<div><output id="waterOutput">100</output></div>
+						<div><output id="airOutput">100</output></div>
 					</div>
 					<div id="actual-levers">
 						<div><input type="range" id="habitat" value="100" min="0" max="100" oninput="habitatOutput.value = habitat.value"></div>
@@ -59,18 +63,24 @@
 				</div>	
 				<div id="levers-explanation">
 	    			<p class="remove-bottom-spacing"><b>How can humans harm an ecosystem?</b></p> 
-	    			<p class="remove-top-spacing">habitat loss - development, industralization, clear cutting, soil erosion, etc. acid rain, pollution</p>
+	    			<p class="remove-top-spacing">Habitat loss can come from human development and industrialization, as well as environmentally harmful practices like clear cutting. Water quality can drop due to issues such as acid rain or contaminants from improper sewage disposal. Air pollution can be caused by events like emissions from manufacturing activities and the burning of fossil fuels.</p>
+
+						<!-- get rid of these 2 lines later -->
+						<br>
+						<button id="step">Temporary Step Button</button> <span id="counter"></span>
 				</div> 
 			</div>
 			<div id="resources">
 				<p class="division-title">Resources Breakdown</p>
-				<canvas id="resources-chart" width="500" height="300"></canvas>
+				<div id="resources-chart"></div>
 			</div>
 		</div>
 	</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="jsplumb.js"></script>
+	<script src="plotly.js"></script>
+	<script src="connectors.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

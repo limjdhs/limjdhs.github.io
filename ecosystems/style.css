@@ -57,17 +57,6 @@ label {
 	border-color:black;
 }
 
-#levers-setup {
-	display:flex;
-	margin-top:25px;
-}
-
-#levers-labels {
-	width:240px;
-	text-align:right;
-	line-height: 25px;
-}
-
 #carnivore-one.active {
 	background:#FF4D45;
 }
@@ -82,4 +71,20 @@ label {
 
 #producer-one.active, #producer-two.active, #producer-three.active, #producer-four.active {
 	background:#B2764E;
+}
+
+#levers-setup {
+	display:flex;
+	margin-top:25px;
+}
+
+#levers-labels {
+	width:205px;
+	text-align:right;
+	line-height: 25px;
+}
+
+#levers-values {
+	width: 35px;
+	line-height: 25px;
 }
