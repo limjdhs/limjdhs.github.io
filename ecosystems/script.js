@@ -296,37 +296,53 @@
         paintStyle:{ stroke:"green", strokeWidth:2 },
         endpoint:[ "Rectangle", { width:5, height:5 }, "Rectangle", { width:5, height:5 } ]
     });
-
 });
 
+const activeStatus = {
+    "carnivore-one": true,
+    //ecvry1
+}
+
+console.log('asdf')
+
+$('.organism').click(function() {
+    activeStatus[this.id] = !activeStatus[this.id]
+    $(this).toggleClass('active')
+})
+console.log('asdf')
+
+function toggleStatus(organism) {
+    const newData = {};
+    newData[organism] = {};
+    newData[organism].status = currentStatus;
+
+    if (currentStatus = "active") {
+        currentStatus = "inactive"
+    } else {
+        currentStatus = "active"
+    }
+}
+
+
+//resources chart
 new Chart(document.getElementById("resources-chart"), {
   type: 'line',
   data: {
     labels: [0,10,20,30,40,50,60,70,80,90,100],
     datasets: [{ 
-        data: [0,86,114,106,106,107,111,133,221,783,2478],
+        data: [100,100,90,80,90,70,80,90,100,100,90],
         label: "Habitat",
         borderColor: "green",
         fill: false
       }, { 
-        data: [0,282,350,411,502,635,809,947,1402,3700,4267],
+        data: [100,90,80,70,60,50,40,50,60,70,80],
         label: "Water",
         borderColor: "blue",
         fill: false
       }, { 
-        data: [0,168,170,178,190,203,276,408,547,675,734],
+        data: [100,50,60,70,80,90,100,90,100,90,100],
         label: "Air Quality",
         borderColor: "purple",
-        fill: false
-      }, { 
-        data: [0,40,20,10,16,24,38,74,167,508,784],
-        label: "Resource 4",
-        borderColor: "red",
-        fill: false
-      }, { 
-        data: [0,6,3,2,2,7,26,82,172,312,433],
-        label: "Five",
-        borderColor: "orange",
         fill: false
       }
     ]

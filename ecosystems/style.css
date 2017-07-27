@@ -1,5 +1,6 @@
 body {
 	text-align: center;
+	font-family: 'Open Sans', sans-serif;
 }
 
 label {
@@ -16,8 +17,16 @@ label {
 }
 
 #second-container, #third-container {
-	display: flex;
+	display:flex;
 	margin-top:50px;
+}
+
+.remove-bottom-spacing {
+	margin-bottom:0px;
+}
+
+.remove-top-spacing {
+	margin-top:0px;
 }
 
 .division-title {
@@ -40,9 +49,37 @@ label {
 	background-color:#E0E3E5;
 	border:solid;
 	border-color:#3B3B40;
+	transition: all 200ms;
 }
 
 .organism:hover {
 	background-color:#BBBDBF;
 	border-color:black;
+}
+
+#levers-setup {
+	display:flex;
+	margin-top:25px;
+}
+
+#levers-labels {
+	width:240px;
+	text-align:right;
+	line-height: 25px;
+}
+
+#carnivore-one.active {
+	background:#FF4D45;
+}
+
+#omnivore-one.active, #omnivore-two.active {
+	background:#237ECC;
+}
+
+#herbivore-one.active, #herbivore-two.active, #herbivore-three.active {
+	background:#2FB23F;
+}
+
+#producer-one.active, #producer-two.active, #producer-three.active, #producer-four.active {
+	background:#B2764E;
 }
