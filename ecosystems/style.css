@@ -61,16 +61,40 @@ label {
 	background:#FF4D45;
 }
 
-#omnivore-one.active, #omnivore-two.active {
-	background:#237ECC;
+#omnivore-one.active {
+	background: #237ECC;
 }
 
-#herbivore-one.active, #herbivore-two.active, #herbivore-three.active {
+#omnivore-two.active {
+	background: #18A0C2;
+}
+
+#herbivore-one.active {
+	background: #226E2D;
+}
+
+#herbivore-two.active {
+	background: #369842;
+}
+
+#herbivore-three.active {
 	background:#2FB23F;
 }
 
-#producer-one.active, #producer-two.active, #producer-three.active, #producer-four.active {
+#producer-one.active {
+	background: #7A4825;
+}
+
+#producer-two.active {
+	background:#986D51;
+}
+
+#producer-three.active {
 	background:#B2764E;
+}
+
+#producer-four.active {
+	background: #D68E5E;
 }
 
 #levers-setup {

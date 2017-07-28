@@ -1,4 +1,5 @@
 //food web connections
+$(document).ready(function() {
  jsPlumb.bind("ready", function() {
     jsPlumb.connect({ 
         source:"carnivore-one",
@@ -296,4 +297,5 @@
         paintStyle:{ stroke:"green", strokeWidth:2 },
         endpoint:[ "Rectangle", { width:5, height:5 }, "Rectangle", { width:5, height:5 } ]
     });
+});
 });
