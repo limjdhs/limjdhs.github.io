@@ -87,20 +87,16 @@ $('#step').click(function() {
                 var temp
                 var previous = allOrganisms[key].y[year/10 - 1]
                 if (key.startsWith("carnivore")) {
-                    //potentially
+                    // prey
                     temp = previous + (omnivoreTotal + herbivoreTotal - 2 * carnivoreTotal) / 2
-                        // if enough food
-                        // (previous + 0.2 * ((omnivoreTotal + herbivoreTotal) - 2 * carnivoreTotal)) 
                 } else if (key.startsWith("omnivore")) {
-                    temp = previous + ((herbivoreTotal + producerTotal - 2 * omnivoreTotal) / 2)
-                        // prey
-                        // (previous + 0.2 * ((herbivoreTotal + producerTotal) - 2 * omnivoreTotal)) 
+                    // prey
+                    temp = previous + (herbivoreTotal + omnivoreTotal - 2 * omnivoreTotal) / 2
                         // predators
                         // + 0.1 * (previous - carnivoreTotal / 2)
                 } else if (key.startsWith("herbivore")) {
+                    // prey 
                     temp = previous + ((producerTotal - herbivoreTotal)/3)
-                        // prey
-                        // (previous + 0.2 * (producerTotal - herbivoreTotal)) 
                         // predators
                         // + 0.1 * (previous - (carnivoreTotal / 6 + omnivoreTotal / 6))
                 } else if (key.startsWith("producer")) {
@@ -113,13 +109,8 @@ $('#step').click(function() {
                 }
 
                 if (temp > 0) {
+                    // habitat impacts all
                     allOrganisms[key].y[year/10] = temp / 10 * Math.sqrt(2 * trace1.y[year/10]);
-                    // impacts of resources
-                    // allOrganisms[key].y[year/10] = temp * 0.01 * Math.cbrt(
-                        // trace1.y[year/10] * trace2.y[year/10] * trace3.y[year/10])
-                        // (trace1.y[year/10] - trace1.y[year/10 - 1] + 100) * 
-                        // (trace2.y[year/10] - trace2.y[year/10 - 1] + 100) * 
-                        // (trace3.y[year/10] - trace3.y[year/10 - 1] + 100));
                 } else {
                     // organism died
                     allOrganisms[key].y[year/10] = 0;
