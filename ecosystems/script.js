@@ -1,15 +1,15 @@
 
 const activeStatus = {
-    "carnivore1": false,
-    "omnivore1": false,
-    "omnivore2": false,
-    "herbivore1": false,
-    "herbivore2": false,
-    "herbivore3": false,
-    "producer1": false,
+    "carnivore1": true,
+    "omnivore1": true,
+    "omnivore2": true,
+    "herbivore1": true,
+    "herbivore2": true,
+    "herbivore3": true,
+    "producer1": true,
     "producer2": true,
     "producer3": true,
-    "producer4": false,
+    "producer4": true,
 }
 
 $('.organism').click(function() {
@@ -19,50 +19,157 @@ $('.organism').click(function() {
 
 // global variables
 var year = 0;
-// adjusts resource values based on sliders
+var carnivoreTotal = 0;
+var omnivoreTotal = 0;
+var herbivoreTotal = 0;
+var producerTotal = 0;
+
 $('#step').click(function() {
-    if (year != 110) {
+    if (year == 0) {
         document.querySelector("#counter").innerHTML = year;
 
-        //test
-        // for (var key in activeStatus) {
-        //     console.log(key)
-        //     console.log(activeStatus)
-        //     if (activeStatus[key] != false) {
-        //         allOrganisms[key].y[year/10] = 0
-        //     } else {
-        //         allOrganisms[key].y[year/10] = 100
-        //     }
-        // }
-
-        const key = 'producer4'
-        console.table(allOrganisms[key])
-        if (activeStatus[key] != false) {
-                allOrganisms[key].y[year/10] = 100
-            } else {
-                allOrganisms[key].y[year/10] = 200
-            }
-        console.table(allOrganisms[key])
-
-        Plotly.newPlot('organism-chart', organismData, organismLayout);
-
-
-
+        // update resources
         trace1.y[year/10] = document.querySelector("#habitatOutput").innerHTML;
         trace2.y[year/10] = document.querySelector("#waterOutput").innerHTML;
         trace3.y[year/10] = document.querySelector("#airOutput").innerHTML;
         Plotly.newPlot('resources-chart', resourceData, resourceLayout);
 
+        for (key in allOrganisms) {
+            if (activeStatus[key] != false) {
+                if (key.startsWith("carnivore")) {
+                    allOrganisms[key].y[year/10] = 500;
+                } else if (key.startsWith("omnivore")) {
+                    allOrganisms[key].y[year/10] = 250;
+                } else if (key.startsWith("herbivore")) {
+                    allOrganisms[key].y[year/10] = 166 + (2/3);
+                } else if (key.startsWith("producer")) {
+                    allOrganisms[key].y[year/10] = 125;
+                } else {
+                    console.log("error")
+                }
+            } else {
+                allOrganisms[key].y[year/10] = 0;
+            }
+        }
+
+        // keep track of totals
+        carnivoreTotal = allOrganisms.carnivore1.y[year/10]
+        console.log("Carnivore Total: " + carnivoreTotal)
+
+        omnivoreTotal = allOrganisms.omnivore1.y[year/10] + allOrganisms.omnivore2.y[year/10]
+        console.log("Omnivore Total: " + omnivoreTotal)
+
+        herbivoreTotal = allOrganisms.herbivore1.y[year/10] + allOrganisms.herbivore2.y[year/10] + allOrganisms.herbivore3.y[year/10]
+        console.log("Herbivore Total: " + herbivoreTotal)
+
+        producerTotal = allOrganisms.producer1.y[year/10] + allOrganisms.producer2.y[year/10] + allOrganisms.producer3.y[year/10] + allOrganisms.producer4.y[year/10]
+        console.log("Producer Total: " + producerTotal)
+
+        // updates chart
+        Plotly.newPlot('organism-chart', organismData, organismLayout);
+
+        year += 10;
+
+    } else if (year < 110) {
+        document.querySelector("#counter").innerHTML = year;
+
+        // update resources
+        trace1.y[year/10] = document.querySelector("#habitatOutput").innerHTML;
+        trace2.y[year/10] = document.querySelector("#waterOutput").innerHTML;
+        trace3.y[year/10] = document.querySelector("#airOutput").innerHTML;
+        Plotly.newPlot('resources-chart', resourceData, resourceLayout);
+
+        for (key in allOrganisms) {
+            // console.log(activeStatus[key])
+            // console.log(allOrganisms[key] = allOrganisms[key].y)
+
+            if (activeStatus[key] != false) {
+                var temp
+                var previous = allOrganisms[key].y[year/10 - 1]
+                if (key.startsWith("carnivore")) {
+                    //potentially
+                    temp = previous + (omnivoreTotal + herbivoreTotal - 2 * carnivoreTotal) / 2
+                        // if enough food
+                        // (previous + 0.2 * ((omnivoreTotal + herbivoreTotal) - 2 * carnivoreTotal)) 
+                } else if (key.startsWith("omnivore")) {
+                    temp = previous + ((herbivoreTotal + producerTotal - 2 * omnivoreTotal) / 2)
+                        // prey
+                        // (previous + 0.2 * ((herbivoreTotal + producerTotal) - 2 * omnivoreTotal)) 
+                        // predators
+                        // + 0.1 * (previous - carnivoreTotal / 2)
+                } else if (key.startsWith("herbivore")) {
+                    temp = previous + ((producerTotal - herbivoreTotal)/3)
+                        // prey
+                        // (previous + 0.2 * (producerTotal - herbivoreTotal)) 
+                        // predators
+                        // + 0.1 * (previous - (carnivoreTotal / 6 + omnivoreTotal / 6))
+                } else if (key.startsWith("producer")) {
+                   //relies solely on resources 
+                    temp = previous + (Math.sqrt(trace2.y[year/10] * trace3.y[year/10]) - (previous / 2.5))
+                        // predators
+                        // + 0.1 * (previous - (omnivoreTotal / 8 + herbivoreTotal / 8))
+                } else {
+                    console.log("error");
+                }
+
+                if (temp > 0) {
+                    allOrganisms[key].y[year/10] = temp / 10 * Math.sqrt(2 * trace1.y[year/10]);
+                    // impacts of resources
+                    // allOrganisms[key].y[year/10] = temp * 0.01 * Math.cbrt(
+                        // trace1.y[year/10] * trace2.y[year/10] * trace3.y[year/10])
+                        // (trace1.y[year/10] - trace1.y[year/10 - 1] + 100) * 
+                        // (trace2.y[year/10] - trace2.y[year/10 - 1] + 100) * 
+                        // (trace3.y[year/10] - trace3.y[year/10 - 1] + 100));
+                } else {
+                    // organism died
+                    allOrganisms[key].y[year/10] = 0;
+                }
+            } else {
+                allOrganisms[key].y[year/10] = 0;
+            }
+        }
+
+        // keep track of totals
+        carnivoreTotal = allOrganisms.carnivore1.y[year/10]
+        console.log("Carnivore Total: " + carnivoreTotal)
+
+        omnivoreTotal = allOrganisms.omnivore1.y[year/10] + allOrganisms.omnivore2.y[year/10]
+        console.log("Omnivore Total: " + omnivoreTotal)
+
+        herbivoreTotal = allOrganisms.herbivore1.y[year/10] + allOrganisms.herbivore2.y[year/10] + allOrganisms.herbivore3.y[year/10]
+        console.log("Herbivore Total: " + herbivoreTotal)
+
+        producerTotal = allOrganisms.producer1.y[year/10] + allOrganisms.producer2.y[year/10] + allOrganisms.producer3.y[year/10] + allOrganisms.producer4.y[year/10]
+        console.log("Producer Total: " + producerTotal)
+
+        // updates chart
+        Plotly.newPlot('organism-chart', organismData, organismLayout);
+        // console.table(allOrganisms[key])
+
         year += 10;
     }
 })
 
+// resets charts
 $('#reset').click(function() {
     trace1.y = [0]
     trace2.y = [0]
     trace3.y = [0]
+    allOrganisms.carnivore1.y = [0]
+    allOrganisms.omnivore1.y = [0]
+    allOrganisms.omnivore2.y = [0]
+    allOrganisms.herbivore1.y = [0]
+    allOrganisms.herbivore2.y = [0]
+    allOrganisms.herbivore3.y = [0]
+    allOrganisms.producer1.y = [0]
+    allOrganisms.producer2.y = [0]
+    allOrganisms.producer3.y = [0]
+    allOrganisms.producer4.y = [0]
+
     year = 0;
     document.querySelector("#counter").innerHTML = year;
+
+    Plotly.newPlot('organism-chart', organismData, organismLayout);
     Plotly.newPlot('resources-chart', resourceData, resourceLayout);
 })
 
@@ -74,7 +181,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: 'C1',
+        name: '10 C1',
         line: {
             color:"#FF4D45"
         }
@@ -83,7 +190,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: 'O1',
+        name: '100 O1',
         line: {
             color:"#237ECC"
         }
@@ -92,7 +199,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: 'O2',
+        name: '100 O2',
         line: {
             color:"#18A0C2" 
         }
@@ -101,7 +208,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: 'H1',
+        name: '1,000 H1',
         line: {
             color:"#226E2D" 
         }
@@ -110,7 +217,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: 'H2',
+        name: '1,000 H2',
         line: {
             color:"#369842" 
         }
@@ -119,7 +226,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: 'H3',
+        name: '1,000 H3',
         line: {
             color:"#2FB23F"
         }
@@ -128,7 +235,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: '10 P1',
+        name: '10,000 P1',
         line: {
             color:"#7A4825"
         }
@@ -137,7 +244,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: '10 P2',
+        name: '10,000 P2',
         line: {
             color:"#986D51"
         }
@@ -146,7 +253,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: '10 P3',
+        name: '10,000 P3',
         line: {
             color:"#B2764E"
         }
@@ -155,7 +262,7 @@ const allOrganisms = {
         x: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         y: [0],
         mode: 'lines+markers',
-        name: '10 P4',
+        name: '10,000 P4',
         line: {
             color:"#D68E5E"
         }
@@ -188,8 +295,13 @@ var organismLayout = {
     legend: {
         "orientation": "h",
         xanchor: "center",
-        y: 1.2,
-        x: 0.5
+        width: 500,
+        // y: -0.5,
+        y: 1.3,
+        x: 0.5,
+        font: {
+            size: 10,
+        }
     }
 };
 
