@@ -1,3 +1,9 @@
+// global variables
+var year = 0;
+var carnivoreTotal = 0;
+var omnivoreTotal = 0;
+var herbivoreTotal = 0;
+var producerTotal = 0;
 
 const activeStatus = {
     "carnivore1": true,
@@ -12,21 +18,31 @@ const activeStatus = {
     "producer4": true,
 }
 
+const extinctStatus = {
+    "carnivore1": false,
+    "omnivore1": false,
+    "omnivore2": false,
+    "herbivore1": false,
+    "herbivore2": false,
+    "herbivore3": false,
+    "producer1": false,
+    "producer2": false,
+    "producer3": false,
+    "producer4": false,
+}
+
+$('.menu .item')
+  .tab()
+;
+
 $('.organism').click(function() {
     activeStatus[this.id] = !activeStatus[this.id]
     $(this).toggleClass('active')
 })
 
-// global variables
-var year = 0;
-var carnivoreTotal = 0;
-var omnivoreTotal = 0;
-var herbivoreTotal = 0;
-var producerTotal = 0;
-
 $('#step').click(function() {
     if (year == 0) {
-        document.querySelector("#counter").innerHTML = year;
+        // document.querySelector("#counter").innerHTML = year;
 
         // update resources
         trace1.y[year/10] = document.querySelector("#habitatOutput").innerHTML;
@@ -71,7 +87,7 @@ $('#step').click(function() {
         year += 10;
 
     } else if (year < 110) {
-        document.querySelector("#counter").innerHTML = year;
+        // document.querySelector("#counter").innerHTML = year;
 
         // update resources
         trace1.y[year/10] = document.querySelector("#habitatOutput").innerHTML;
@@ -83,7 +99,7 @@ $('#step').click(function() {
             // console.log(activeStatus[key])
             // console.log(allOrganisms[key] = allOrganisms[key].y)
 
-            if (activeStatus[key] != false) {
+            if (activeStatus[key] != false && extinctStatus[key] != true) {
                 var temp
                 var previous = allOrganisms[key].y[year/10 - 1]
                 if (key.startsWith("carnivore")) {
@@ -93,27 +109,30 @@ $('#step').click(function() {
                     // prey
                     temp = previous + (herbivoreTotal + omnivoreTotal - 2 * omnivoreTotal) / 2
                         // predators
-                        // + 0.1 * (previous - carnivoreTotal / 2)
+                        // - 0.3 * (carnivoreTotal - omnivoreTotal) / 2
                 } else if (key.startsWith("herbivore")) {
                     // prey 
                     temp = previous + ((producerTotal - herbivoreTotal)/3)
                         // predators
-                        // + 0.1 * (previous - (carnivoreTotal / 6 + omnivoreTotal / 6))
+                        // - 0.3 * (carnivoreTotal + omnivoreTotal - 2 * herbivoreTotal) / 3
+                        // + (previous - (carnivoreTotal + omnivoreTotal - 2 * herbivoreTotal) / 3)
                 } else if (key.startsWith("producer")) {
                    //relies solely on resources 
                     temp = previous + (Math.sqrt(trace2.y[year/10] * trace3.y[year/10]) - (previous / 2.5))
                         // predators
-                        // + 0.1 * (previous - (omnivoreTotal / 8 + herbivoreTotal / 8))
+                        // - 0.3 * (omnivoreTotal + herbivoreTotal - 2 * producerTotal) / 4
+                        // + 0.2 * (previous - (omnivoreTotal / 8 + herbivoreTotal / 8))
                 } else {
                     console.log("error");
                 }
 
                 if (temp > 0) {
                     // habitat impacts all
-                    allOrganisms[key].y[year/10] = temp / 10 * Math.sqrt(2 * trace1.y[year/10]);
+                    allOrganisms[key].y[year/10] = Math.min(temp, temp / 10 * Math.sqrt(2 * trace1.y[year/10]));
                 } else {
                     // organism died
                     allOrganisms[key].y[year/10] = 0;
+                    extinctStatus[key] = true;
                 }
             } else {
                 allOrganisms[key].y[year/10] = 0;
@@ -157,8 +176,19 @@ $('#reset').click(function() {
     allOrganisms.producer3.y = [0]
     allOrganisms.producer4.y = [0]
 
+    extinctStatus.carnivore1 = false;
+    extinctStatus.omnivore1 = false;
+    extinctStatus.omnivore2 = false;
+    extinctStatus.herbivore1 = false;
+    extinctStatus.herbivore2 = false;
+    extinctStatus.herbivore3 = false;
+    extinctStatus.producer1 = false;
+    extinctStatus.producer2 = false;
+    extinctStatus.producer3 = false;
+    extinctStatus.producer4 = false;
+
     year = 0;
-    document.querySelector("#counter").innerHTML = year;
+    // document.querySelector("#counter").innerHTML = year;
 
     Plotly.newPlot('organism-chart', organismData, organismLayout);
     Plotly.newPlot('resources-chart', resourceData, resourceLayout);
@@ -275,12 +305,13 @@ var organismLayout = {
     },
     xaxis: {
         title: 'Years',
+        autorange:true,
         dtick: 10,
         range: [0, 100]
     },
     yaxis: {
         title: 'Number of Organisms',
-        range: [0, 1020]
+        // range: [0, 1020]
     },
     showlegend: true,
     legend: {
@@ -346,6 +377,7 @@ var resourceLayout = {
     },
     xaxis: {
         title: 'Years',
+        autorange:true,
         dtick: 10,
         range: [0, 100]
     },

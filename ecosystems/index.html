@@ -4,13 +4,15 @@
     <title></title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
+    <link rel="stylesheet" href="atomLight.css">
+    <link rel="stylesheet" type="text/css" href="semantic.min.css">
     <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
 	<div id="main-container">
 		<div id="first-container">
 			<h1>Ecosystem Simulation</h1>
-			<p>Explanation about carrying capacity.</p>
+			<p id="intro">An ecosystem is a complex community of living organisms that interact with their physical environment. This simulation will measures the carrying capacity of the ecosystem, which is the maximum number of organisms that can be supported indefinitely. See what changes when you revise the food web by clicking on the organisms, and/or modify the resources by adjusting the sliders.</p>
 		</div>
 
 		<div id="second-container">
@@ -38,7 +40,7 @@
 			<div id="graph">
 				<p class="division-title">Carrying Capacity Breakdown</p>
 				<div id="organism-chart"></div>
-				<p>Current Year: <span id="counter">0</span></p>
+				<!-- <p>Current Year: <span id="counter">0</span></p> -->
 				<button id="step">Step</button> <button id="reset">Reset</button>
 			</div>
 		</div>
@@ -62,10 +64,10 @@
 						<div><input type="range" id="water" value="50" min="0" max="100" oninput="waterOutput.value = water.value"></div>
 						<div><input type="range" id="air" value="50" min="0" max="100" oninput="airOutput.value = air.value"></div>
 					</div>
-				</div>	
+				</div> <br>
 				<div id="levers-explanation">
 	    			<p class="remove-bottom-spacing"><b>How can humans harm an ecosystem?</b></p> 
-	    			<p class="remove-top-spacing">Habitat loss can come from human development and industrialization, as well as environmentally harmful practices like clear cutting. Water quality can drop due to issues such as acid rain or contaminants from improper sewage disposal. Air pollution can be caused by events like emissions from manufacturing activities and the burning of fossil fuels.</p>
+	    			<p id="resource-explanation">Habitat loss can come from human development and industrialization, as well as environmentally harmful practices like clear cutting. Water quality can drop due to issues such as acid rain or contaminants from improper sewage disposal. Air pollution can be caused by events like emissions from manufacturing activities and the burning of fossil fuels.</p>
 				</div> 
 			</div>
 			<div id="resources">
@@ -73,11 +75,87 @@
 				<div id="resources-chart"></div>
 			</div>
 		</div>
+
+		<div id="fourth-container">
+			<p class="division-title">How was this simulation created?</p>
+			<div>
+				<div class="ui top attached tabular menu">
+					<a class="item" data-tab="first">Organism Graph: Setting the Initial Values</a>
+					<a class="item" data-tab="second">Organism Graph: Adjusting the Values</a>
+					<a class="item" data-tab="third">Resource Graph: Plotting the Points</a>
+				</div>
+				<div class="ui bottom attached tab segment" data-tab="first">
+					<div class="test">
+						<div><pre> <code id="highlight">	for (organism in allOrganisms) {
+
+	    if (activeStatus[organism] == true) {
+
+	        if (organism.startsWith("carnivore")) {
+	            allOrganisms[organism].y[year] = 500;
+
+	        } else if (organism.startsWith("omnivore")) {
+	            allOrganisms[organism].y[year] = 250;
+
+	        } else if (organism.startsWith("herbivore")) {
+	            allOrganisms[organism].y[year] = 166.66;
+
+	        } else if (organism.startsWith("producer")) {
+	            allOrganisms[organism].y[year] = 125;
+	        } 
+
+	    } else {
+	        allOrganisms[organism].y[year] = 0;
+	    }
+	}
+						</code></pre></div>
+						<div class="code-explanation"> <br> <br> <br>
+							<p>We start our code with a for loop, which will repeat our code for each organism in the list of allOrganisms.</p>
+							<p>Then we move to an if statement, which checks if the organism is active on the food web.</p>
+							<p>If the organism is active, we'll start the next conditional.</p> <br>
+							<p>If the organism is a carnivore, the initial value is set to 500.</p>
+							<p>Otherwise if it is an omnivore, the initial value is 250.</p>
+							<p>If it is an herbivore, it is 166.66.</p>
+							<p>And finally, producers are 150. </p><br>
+							<p>If the organism is not active, we'll set the value to 0.<p>
+						</div>
+					</div>
+				</div>	
+				<div class="ui bottom attached tab segment" data-tab="second">
+					<p>We adjust the values of the organism graph using the same computational concepts as setting the intial values: for loops and conditionals.</p>
+					<p>But what ecological ideas are included? We'll look closely at resources (the amount of habitat, amount of water, and air quality) and prey (if there are enough organisms in the food web to support predators).</p>
+					</ul>
+				</div>
+				<div class="ui bottom attached tab segment" data-tab="third">
+					<div><pre> <code id="highlight">habitat.y[year] = document.querySelector("#habitatOutput").innerHTML;
+water.y[year] = document.querySelector("#waterOutput").innerHTML;
+air.y[year] = document.querySelector("#airOutput").innerHTML;
+
+Plotly.newPlot('resources-chart', resourceData, resourceLayout);</code></pre></div>
+					<div class="code-explanation"> <br> <br>
+						<p>Where do we plot the resource graph coordinates? The x-values will be always be 10 more than the previous coordinate. Here's how to find the y-values: <p>
+						<ul> 
+							<li> Search our HTML document (the web page)</li>
+							<li> Select the sliders, which are elements with either the habitatOutput, waterOutput or airOutput tags </li>
+							<li> Set the y-values of the new resource coordinates to the values of the sliders </li>
+						</ul>
+						<p>We'll then use a function to plot the new graph, based on the new resourceData. </p>
+					</div>
+				</div><br>
+			</div>
+		</div>
 	</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script
+		src="https://code.jquery.com/jquery-3.1.1.min.js"
+		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		crossorigin="anonymous">
+	</script>
+	<script src="semantic.min.js"></script>
 	<script src="jsplumb.js"></script>
 	<script src="plotly.js"></script>
+    <script src="highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 	<script type="text/javascript" src="script.js"></script>
 	<script src="connectors.js"></script>
 </body>
