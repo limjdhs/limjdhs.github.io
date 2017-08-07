@@ -18,6 +18,10 @@ button {
 	border-radius:3px;
 }
 
+button:hover {
+	cursor:pointer;
+}
+
 #main-container {
 	width:1100px;
 	margin:0 auto;

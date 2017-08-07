@@ -40,6 +40,10 @@ $('.organism').click(function() {
     $(this).toggleClass('active')
 })
 
+function disableButtons(key) {
+    document.getElementById(key).disabled = !document.getElementById(key).disabled;
+}
+
 $('#step').click(function() {
     if (year == 0) {
         // document.querySelector("#counter").innerHTML = year;
@@ -51,6 +55,7 @@ $('#step').click(function() {
         Plotly.newPlot('resources-chart', resourceData, resourceLayout);
 
         for (key in allOrganisms) {
+            disableButtons(key);
             if (activeStatus[key] != false) {
                 if (key.startsWith("carnivore")) {
                     allOrganisms[key].y[year/10] = 500;
@@ -158,6 +163,9 @@ $('#step').click(function() {
 
         year += 10;
     }
+    if (year == 110) {
+        document.getElementById("step").disabled = true;
+    }
 })
 
 // resets charts
@@ -186,6 +194,18 @@ $('#reset').click(function() {
     extinctStatus.producer2 = false;
     extinctStatus.producer3 = false;
     extinctStatus.producer4 = false;
+
+    disableButtons("carnivore1");
+    disableButtons("omnivore1");
+    disableButtons("omnivore2");
+    disableButtons("herbivore1");
+    disableButtons("herbivore2");
+    disableButtons("herbivore3");
+    disableButtons("producer1");
+    disableButtons("producer2");
+    disableButtons("producer3");
+    disableButtons("producer4");
+    document.getElementById("step").disabled = false;
 
     year = 0;
     // document.querySelector("#counter").innerHTML = year;
