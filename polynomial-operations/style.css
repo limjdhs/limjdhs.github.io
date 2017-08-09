@@ -3,21 +3,37 @@ button {
  	font-size:16px;
 }
 
-#layer-one, #layer-two, #layer-three {
-	display:flex;
+#main-container {
+	margin:50px auto;
 }
 
-#box-one, #box-two, #box-three, #box-four {
-	border:solid;
+#layer-one, #layer-two, #layer-three, .sim-row {
+	display:flex;
 }
 
 #placeholder, #m1-label, #b1-label {
 	width:30px;
 }
 
-#m1-label, #b1-label, #m2-label, #b2-label {
+#m1-label, #b1-label, #m2-label, #b2-label, .sim-column {
 	text-align:center;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+}
+
+.sim-column {
+	border:solid;
+}
+
+div#box-one div.sim-row {
+	background:#FF9B92;
+}
+
+div#box-two div.sim-row, div#box-three div.sim-row {
+	background:#78B6FF;
+}
+
+div#box-four div.sim-row {
+	background:#F1FFAB;
 }

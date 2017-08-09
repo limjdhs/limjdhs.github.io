@@ -9,43 +9,39 @@
     <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
 <body>
-	<div class="content">
-	<h1>Polynomial Operations</h1>
-	</div>
+	<div id="main-container">
+		<div class="content">
+		<h1>Polynomial Operations</h1>
+		</div>
 
-	<div class="columns">
-		<div class="column is-2">
-			<div id="inputs">
-				<input id="m1" class="input" type="number" placeholder="1st Coefficient">
-				<input id="b1" class="input" type="number" placeholder="1st Constant">
-				<input id="m2" class="input" type="number" placeholder="2nd Coefficient">
-				<input id="b2" class="input" type="number" placeholder="2nd Constant">
+		<div class="columns">
+			<div class="column is-2">
+				<div id="inputs">
+					<input id="m1" class="input" type="number" placeholder="1st Coefficient">
+					<input id="b1" class="input" type="number" placeholder="1st Constant">
+					<input id="m2" class="input" type="number" placeholder="2nd Coefficient">
+					<input id="b2" class="input" type="number" placeholder="2nd Constant">
+				</div>
 			</div>
-			<br><button id="compute">Go</button>
+		</div>
+
+		<div id="layer-one">
+			<div id="placeholder"></div>
+			<div id="m2-label"></div>
+			<div id="b2-label"></div>
+		</div>
+		<div id="layer-two">
+			<div id="m1-label"><p></p></div>
+			<div id="box-one"></div>
+			<div id="box-two"></div>
+		</div>
+		<div id="layer-three">
+			<div id="b1-label"></div>
+			<div id="box-three"></div>
+			<div id="box-four"></div>
 		</div>
 	</div>
 
-	<div id="layer-one">
-		<div id="placeholder"></div>
-		<div id="m2-label">3</div>
-		<div id="b2-label">4</div>
-	</div>
-	<div id="layer-two">
-		<div id="m1-label"><p>1</p></div>
-		<div id="box-one">a</div>
-		<div id="box-two">b</div>
-	</div>
-	<div id="layer-three">
-		<div id="b1-label">2</div>
-		<div id="box-three">c</div>
-		<div id="box-four">d</div>
-	</div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script
-		src="https://code.jquery.com/jquery-3.1.1.min.js"
-		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-		crossorigin="anonymous">
-	</script>
 	<script type="text/javascript" src="script.js"></script>
 </body>
