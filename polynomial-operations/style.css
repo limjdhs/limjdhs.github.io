@@ -4,11 +4,21 @@ button {
 }
 
 #main-container {
-	margin:50px auto;
+	margin:0px auto;
+	margin-top:100px;
+	text-align:center;
 }
 
 #layer-one, #layer-two, #layer-three, .sim-row {
 	display:flex;
+}
+
+.label {
+	margin-top:50px;
+}
+
+#model {
+	display:inline-block;
 }
 
 #placeholder, #m1-label, #b1-label {
