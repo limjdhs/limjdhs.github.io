@@ -4,8 +4,7 @@ button {
 }
 
 #main-container {
-	margin:0px auto;
-	margin-top:100px;
+	margin:100px 0px 100px 0px;
 	text-align:center;
 }
 
@@ -17,8 +16,18 @@ button {
 	margin-top:50px;
 }
 
+#legend {
+	text-align:left;
+	display:flex;
+}
+
+#x2, #x, #one {
+	height:50px;
+}
+
 #model {
 	display:inline-block;
+	width:80%;
 }
 
 #placeholder, #m1-label, #b1-label {
@@ -36,14 +45,24 @@ button {
 	border:solid;
 }
 
-div#box-one div.sim-row {
+#x2 {
+	display:inline-block;
+	border:solid;
 	background:#FF9B92;
+	width:30px;
+	height:30px;
 }
 
-div#box-two div.sim-row, div#box-three div.sim-row {
-	background:#78B6FF;
+#x {
+	border:solid;
+	background:#8ACCFF;
+	width:45px;
+	height:15px;
 }
 
-div#box-four div.sim-row {
+#one {
+	border:solid;
 	background:#F1FFAB;
+	width:20px;
+	height:20px;
 }
