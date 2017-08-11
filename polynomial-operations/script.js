@@ -191,6 +191,17 @@ function compute() {
 	}
 }
 
+function isValid(input) {
+	if (input > -11) {
+		if (input < 11) {
+			if (input % 1 == 0) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 // checks if input is valid on click
 $(".input").each(function() {
 	$(this).on('input', function() {
@@ -199,11 +210,11 @@ $(".input").each(function() {
 		m2 = document.getElementById("m2").value;
 		b2 = document.getElementById("b2").value;
 
-		if (m1 > -11 && m1 < 11 && b1 > -11 && b1 < 11 && m2 > -11 && m2 < 11 && b2 > -11 && b2 < 11 ) {
+		if (isValid(m1)==true && isValid(b1)==true && isValid(m2)==true && isValid(b2)==true) {
 			document.getElementById("validator").innerHTML = ""
 			compute();
 		} else {
-			document.getElementById("validator").innerHTML = "Enter values between -10 and 10."
+			document.getElementById("validator").innerHTML = "Enter integers between -10 and 10."
 		}
 	});
 })
