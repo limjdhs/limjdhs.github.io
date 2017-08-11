@@ -28,7 +28,50 @@ function compute() {
 	var x2Ans = m1 * m2;
 	var xAns1 = m1 * b2
 	var xAns2 = m2 * b1;
+	var xAns = xAns1 + xAns2;
 	var oneAns = b1 * b2;
+	document.getElementById("x-input-1").innerHTML = "";
+	document.getElementById("one-input-1").innerHTML = "";
+	document.getElementById("x-input-2").innerHTML = "";
+	document.getElementById("one-input-2").innerHTML = "";
+	document.getElementById("x2-answer").innerHTML = "";
+	document.getElementById("x-answer").innerHTML = "";
+	document.getElementById("one-answer").innerHTML = "";
+
+	if (m1 != 0 && b1 != 0) {
+		document.getElementById("x-input-1").innerHTML = "(";
+	}
+	if (m1 != 0) {
+		document.getElementById("x-input-1").innerHTML += m1+"x";
+	}
+	if (b1 < 0) {
+		document.getElementById("one-input-1").innerHTML = b1;
+	} else if (m1 != 0 && b1 > 0) {
+		document.getElementById("one-input-1").innerHTML = "+"+b1;
+	} else if (b1 > 0) {
+		document.getElementById("one-input-1").innerHTML = b1;
+	}
+	if (m1 != 0 && b1 != 0) {
+		document.getElementById("one-input-1").innerHTML += ")";
+	}
+
+	if (m2 != 0 && b2 != 0) {
+		document.getElementById("x-input-2").innerHTML = "(";
+	}
+	if (m2 != 0) {
+		document.getElementById("x-input-2").innerHTML += m2+"x";
+	}
+	if (b2 < 0) {
+		document.getElementById("one-input-2").innerHTML = b2;
+	} else if (m2 != 0 && b2 > 0) {
+		document.getElementById("one-input-2").innerHTML = "+"+b2;
+	} else if (b2 > 0) {
+		document.getElementById("one-input-2").innerHTML = b2;
+	}
+	if (m2 != 0 && b2 != 0) {
+		document.getElementById("one-input-2").innerHTML += ")";
+	}
+
 
 	// creates labels
 	$("#m1-label").html(`${m1}x`);
@@ -121,10 +164,20 @@ function compute() {
 		})
 	}
 
-	// creates answer count
-	document.getElementById("x2-answer").innerHTML = x2Ans;
-	document.getElementById("x-answer").innerHTML = xAns1 + xAns2;
-	document.getElementById("one-answer").innerHTML = oneAns;
+	// creates answer
+	if (x2Ans != 0) {
+		document.getElementById("x2-answer").innerHTML = x2Ans + "x<sup>2</sup>";
+	}
+	if (x2Ans != 0 && xAns > 0) {
+		document.getElementById("x-answer").innerHTML = "+" + xAns + "x";
+	} else if (xAns != 0) {
+		document.getElementById("x-answer").innerHTML = xAns + "x";
+	} 
+	if (oneAns > 0) {
+		document.getElementById("one-answer").innerHTML = "+" + oneAns;
+	} else if (oneAns < 0) {
+		document.getElementById("one-answer").innerHTML = oneAns;
+	}
 }
 
 // checks if input is valid on click
@@ -135,7 +188,7 @@ $(".input").each(function() {
 			document.getElementById("validator").innerHTML = ""
 			compute();
 		} else {
-			document.getElementById("validator").innerHTML = "Enter a value between 1 and 10."
+			document.getElementById("validator").innerHTML = "Enter a value between -10 and 10."
 		}
 	});
 })

@@ -21,13 +21,24 @@ button {
 	display:flex;
 }
 
+#legend-one {
+	width:65px;
+}
+
+#legend-two {
+	width: 80px;
+}
+
 #x2, #x, #one {
 	height:50px;
 }
 
 #model {
-	display:inline-block;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
 	width:80%;
+	align-items: center;
 }
 
 #placeholder, #m1-label, #b1-label {
@@ -63,6 +74,28 @@ button {
 #one {
 	border:solid;
 	background:#F1FFAB;
+	width:20px;
+	height:20px;
+}
+
+#x2-n {
+	display:inline-block;
+	border:solid;
+	background:#FF5149;
+	width:30px;
+	height:30px;
+}
+
+#x-n {
+	border:solid;
+	background:#3189CC;
+	width:45px;
+	height:15px;
+}
+
+#one-n {
+	border:solid;
+	background:#E0D051;
 	width:20px;
 	height:20px;
 }
