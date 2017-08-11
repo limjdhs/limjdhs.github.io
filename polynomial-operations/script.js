@@ -1,5 +1,9 @@
 // global variables
 var scale = document.getElementById("model").offsetWidth/13;
+var m1 = document.getElementById("m1").value;
+var b1 = document.getElementById("b1").value;
+var m2 = document.getElementById("m2").value;
+var b2 = document.getElementById("b2").value;
 
 // creates boxes
 function addBoxes(box, rows, columns, label, width, height) {
@@ -17,10 +21,6 @@ function addBoxes(box, rows, columns, label, width, height) {
 // runs model
 function compute() {
 	// sets up variables
-	var m1 = document.getElementById("m1").value;
-	var b1 = document.getElementById("b1").value;
-	var m2 = document.getElementById("m2").value;
-	var b2 = document.getElementById("b2").value;
 	var m1Abs = Math.abs(m1);
 	var b1Abs = Math.abs(b1);
 	var m2Abs = Math.abs(m2);
@@ -30,6 +30,8 @@ function compute() {
 	var xAns2 = m2 * b1;
 	var xAns = xAns1 + xAns2;
 	var oneAns = b1 * b2;
+
+	// refreshes input and answer fields
 	document.getElementById("x-input-1").innerHTML = "";
 	document.getElementById("one-input-1").innerHTML = "";
 	document.getElementById("x-input-2").innerHTML = "";
@@ -38,6 +40,7 @@ function compute() {
 	document.getElementById("x-answer").innerHTML = "";
 	document.getElementById("one-answer").innerHTML = "";
 
+	// creates input equation
 	if (m1 != 0 && b1 != 0) {
 		document.getElementById("x-input-1").innerHTML = "(";
 	}
@@ -74,9 +77,17 @@ function compute() {
 
 
 	// creates labels
-	$("#m1-label").html(`${m1}x`);
+	if (m1 != 0) {
+		$("#m1-label").html(`${m1}x`);
+	} else {
+		$("#m1-label").html(``);
+	}
 	$("#b1-label").html(`${b1}`);
-	$("#m2-label").html(`${m2}x`);
+	if (m2 != 0) {
+		$("#m2-label").html(`${m2}x`);
+	} else {
+		$("#m2-label").html(``);
+	}
 	$("#b2-label").html(`${b2}`);
 
 	// sets dimensions of boxes
@@ -183,12 +194,17 @@ function compute() {
 // checks if input is valid on click
 $(".input").each(function() {
 	$(this).on('input', function() {
-		var input = this.value
-		if (this.value > -11 && this.value < 11) {
+		m1 = document.getElementById("m1").value;
+		b1 = document.getElementById("b1").value;
+		m2 = document.getElementById("m2").value;
+		b2 = document.getElementById("b2").value;
+
+		if (m1 > -11 && m1 < 11 && b1 > -11 && b1 < 11 && m2 > -11 && m2 < 11 && b2 > -11 && b2 < 11 ) {
 			document.getElementById("validator").innerHTML = ""
 			compute();
 		} else {
-			document.getElementById("validator").innerHTML = "Enter a value between -10 and 10."
+			document.getElementById("validator").innerHTML = "Enter values between -10 and 10."
 		}
 	});
 })
+compute()
