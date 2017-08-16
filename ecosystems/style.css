@@ -46,7 +46,7 @@ button:hover {
 	margin-bottom:0px;
 }
 
-#intro {
+.intro {
 	width:870px;
 	margin:0 auto;
 }
@@ -120,6 +120,10 @@ button:hover {
 #resource-explanation {
 	width:470px;
 	margin:0 auto;
+}
+
+.height{
+	height:30px;
 }
 
 #levers-setup {

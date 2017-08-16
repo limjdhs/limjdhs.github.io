@@ -4,6 +4,13 @@ var carnivoreTotal = 0;
 var omnivoreTotal = 0;
 var herbivoreTotal = 0;
 var producerTotal = 0;
+let showInstructions = true;
+
+function toggleInstructions(){
+    showInstructions = !showInstructions;
+    document.querySelector("#directions span").innerHTML = showInstructions ? 'hide' : 'show';
+    document.getElementById("instructions").style.display = showInstructions ? 'block' : 'none';
+}
 
 const activeStatus = {
     "carnivore1": true,

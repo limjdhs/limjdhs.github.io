@@ -12,8 +12,15 @@
 	<div id="main-container">
 		<div id="first-container">
 			<h1>Ecosystem Simulation</h1>
-			<p id="intro">An ecosystem is a complex community of living organisms that interact with their physical environment. This simulation will measures the carrying capacity of the ecosystem, which is the maximum number of organisms that can be supported indefinitely. See what changes when you revise the food web by clicking on the organisms, and/or modify the resources by adjusting the sliders.</p>
+			<p class="intro">An ecosystem is a complex community of living organisms that interact with their physical environment. This simulation will measures the carrying capacity of the ecosystem, which is the maximum number of organisms that can be supported indefinitely. See what changes when you revise the food web by clicking on the organisms, and/or modify the resources by adjusting the sliders.</p>
 		</div>
+		<br>
+
+		<h3 class="toggle" id="directions" onclick="toggleInstructions()">Click here to <span> hide </span> instructions.</h3>
+        <div class="intro" id="instructions">
+            <p>Revise the food web by clicking on the organisms, and/or modify the resources by adjusting the sliders. Then press the "step" button to see in the graphs how the ecosystem changes every 10 years (from 0 to 100 years). Note that after you press step, the food web cannot be modified until you reset the simulation.</p>
+        </div>
+        <br>
 
 		<div id="second-container">
 			<div id="food-web">
@@ -50,19 +57,19 @@
 				<p class="division-title">Human Actions</p>
 				<div id="levers-setup">
 					<div id="levers-labels">
-						<div>Habitat:</div>
-						<div>Water:</div>
-						<div>Air Quality:</div>
+						<div class="height">Habitat:</div>
+						<div class="height">Water:</div>
+						<div class="height">Air Quality:</div>
 					</div>
 					<div id="levers-values">
-						<div><output id="habitatOutput">50</output></div>
-						<div><output id="waterOutput">50</output></div>
-						<div><output id="airOutput">50</output></div>
+						<div class="height"><output id="habitatOutput">50</output></div>
+						<div class="height"><output id="waterOutput">50</output></div>
+						<div class="height"><output id="airOutput">50</output></div>
 					</div>
 					<div id="actual-levers">
-						<div><input type="range" id="habitat" value="50" min="0" max="100" oninput="habitatOutput.value = habitat.value"></div>
-						<div><input type="range" id="water" value="50" min="0" max="100" oninput="waterOutput.value = water.value"></div>
-						<div><input type="range" id="air" value="50" min="0" max="100" oninput="airOutput.value = air.value"></div>
+						<div class="height"><input style="height:100%" type="range" id="habitat" value="50" min="0" max="100" oninput="habitatOutput.value = habitat.value"></div>
+						<div class="height"><input style="height:100%" type="range" id="water" value="50" min="0" max="100" oninput="waterOutput.value = water.value"></div>
+						<div class="height"><input style="height:100%" type="range" id="air" value="50" min="0" max="100" oninput="airOutput.value = air.value"></div>
 					</div>
 				</div> <br>
 				<div id="levers-explanation">
